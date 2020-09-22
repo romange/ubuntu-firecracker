@@ -1,12 +1,12 @@
-FROM ubuntu:bionic
+FROM ubuntu:focal
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV KERNEL_SOURCE_VERSION 4.15.0
+ENV KERNEL_SOURCE_VERSION 5.4.0
 
 WORKDIR /root
 
-RUN apt-get update && apt-get install -y debootstrap build-essential kernel-package \
-  fakeroot linux-source-$KERNEL_SOURCE_VERSION bc kmod cpio flex cpio libncurses5-dev libelf-dev libssl-dev && \
+RUN apt-get update && apt-get install -y bison debootstrap build-essential kernel-package \
+  fakeroot linux-source-$KERNEL_SOURCE_VERSION bc kmod rsync cpio flex cpio libncurses5-dev libelf-dev libssl-dev && \
   tar xvf /usr/src/linux-source-$KERNEL_SOURCE_VERSION.tar.*
 
 ADD config/kernel-config /root/linux-source-$KERNEL_SOURCE_VERSION/.config
